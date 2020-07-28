@@ -1,0 +1,9 @@
+import  math
+
+def main():
+    pi = math.pi
+    print("pi = {0:.100f}". format(pi))
+
+
+if __name__ =="__main__":
+    main()

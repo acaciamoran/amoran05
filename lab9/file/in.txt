@@ -1,0 +1,9 @@
+def main():
+    fp = open('in.txt', 'r')
+    myfile = []
+    for index in range(len(fp)):
+        print("Line {0} ({1} chars): {2}".format(index, len(fp[index]), fp[index])))
+    fp.close()
+
+if __name__== '__main__':
+    main()

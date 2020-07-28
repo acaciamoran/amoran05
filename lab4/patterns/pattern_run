@@ -1,0 +1,35 @@
+#!/bin/bash
+
+NO_PYTHON=1
+NO_PATTERNS=2
+
+die() {
+   echo "$1" >&2
+   exit "$2"
+}
+
+get_py_exec() {
+   if [ 3 -eq "$(python -c 'import sys; print(sys.version_info[0])')" ]; then
+      echo python
+   elif which python3 >/dev/null 2>&1; then
+      echo python3
+   else
+      die 'Must have Python 3 installed.' "$NO_PYTHON"
+   fi
+}
+
+main() {
+   py_exec=$(get_py_exec)
+
+   for pattern in pattern??; do
+      [ -f "$pattern" ] || die 'Must run from Patterns directory.' "$NO_PATTERNS"
+
+      if [ -f "${pattern}.py" ]; then
+         "$py_exec" "${pattern}.py" < "${pattern}"
+      else
+         echo "Missing ${pattern}.py" >&2
+      fi
+   done
+}
+
+main "$@"
